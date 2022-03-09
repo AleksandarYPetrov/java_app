@@ -61,24 +61,22 @@ kind: Ingress
 metadata:
   name: my-ingress
   annotations: 
-    cert-manager.io/issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
-  - http:
+  - host: api.k.devops.sportal365.dev
+    http:
       paths:
       - backend:
           service:
-            name: my-service
-            port:
-              number: 8080
+            name: java-app
+            servicePort: 8080
         path: /
         pathType: Prefix
   tls:
   - hosts:
-    - ingress.devops.sportal365.dev
-    secretName: ingress-tls
-status:
-  loadBalancer:
-    ingress:
-    - ip: 34.111.107.48
+    - api.k.devops.sportal365.dev
+    secretName: api-ingress-tls
+
 ---
