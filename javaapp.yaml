@@ -50,7 +50,8 @@ spec:
       - backend:
           service:
             name: java-app
-            servicePort: 8080
+            port:
+              number: 8080
         path: /
         pathType: Prefix
   tls:
